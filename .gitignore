@@ -4,3 +4,4 @@ node_modules/
 .env
 .env.local
 orders.json
+*开发说明文档*.pdf
