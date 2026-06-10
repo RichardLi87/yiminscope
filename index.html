@@ -577,6 +577,17 @@ function aiProfile(){
 /* ============================================================
    HOME
 ============================================================ */
+const FAMILY=[
+ {key:'offer',name:'录取雷达',domain:'offerscope.org',emoji:'🎓',desc:'留学申请定位 · 能申上哪些学校'},
+ {key:'yimin',name:'移民雷达',domain:'yiminscope.com',emoji:'🧭',desc:'移民竞争力 · 最适合去哪、走哪条路'},
+ {key:'hukou',name:'落户雷达',domain:'hukouscope.com',emoji:'🏙️',desc:'大城市落户 · 积分够不够、怎么补'},
+ {key:'working',name:'求职雷达',domain:'workingscope.com',emoji:'💼',desc:'求职竞争力 · 够不够大厂、值多少薪'},
+];
+function familyStrip(cur){return `<section class="block"><div class="container">
+  <h2 class="sec-title" style="text-align:center">雷达家族</h2>
+  <p class="sec-sub" style="text-align:center;margin-left:auto;margin-right:auto">同一个团队，帮你在人生每个关口先看清自己的位置。任何一个都先免费测。</p>
+  <div class="cards">${FAMILY.filter(f=>f.key!==cur).map(f=>`<a class="card" href="https://${f.domain}" style="display:block;text-decoration:none"><div class="ic">${f.emoji}</div><h3>${f.name}</h3><p>${f.desc}</p><div style="color:var(--clay);font-weight:700;margin-top:10px;font-size:14px">前往 ${f.domain} ›</div></a>`).join('')}</div>
+</div></section>`;}
 RENDER.home=function(){
   const chips=COUNTRY_ORDER.map(k=>`<span class="flagchip" onclick="go('country','${k}')"><span class="fl">${COUNTRIES[k].flag}</span>${COUNTRIES[k].name}<span class="ar">›</span></span>`).join('');
   app().innerHTML=`
@@ -624,6 +635,8 @@ RENDER.home=function(){
       ${[["🧭","该先攻哪个国家","不用一上来就广撒网、白交申请费"],["🎯","到底卡在哪","是年龄、语言还是资金，一眼看出来"],["🗺️","下一步做什么","先补语言还是先做认证，有先后"],["📋","签约前有个数","几十万花下去之前，先有个参照"],["👨‍👩‍👧","跟家人说得清","一份配偶、爸妈都看得懂的明白账"],["⚖️","听得出真假","中介说“你肯定能办”，你能自己判断"]].map(v=>`<div class="vchip"><div class="ic">${v[0]}</div><b>${v[1]}</b><p>${v[2]}</p></div>`).join('')}
     </div>
   </div></section>
+
+  ${familyStrip('yimin')}
 
   <section class="block alt" id="price"><div class="container">
     <h2 class="sec-title" style="text-align:center">想看完整规划？测完再说也不迟</h2>
