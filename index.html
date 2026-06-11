@@ -1172,6 +1172,13 @@ RENDER.report=function(){
       ${ai.familyFriendlySummary.budgetAndDecisionAdvice?`<h3>预算与决策</h3><p style="color:#3c4a43">${esc(ai.familyFriendlySummary.budgetAndDecisionAdvice)}</p>`:''}
     </div>`:''}
 
+    ${(!isPrem&&!A.isSample)?`<div class="rsec" style="border:1px dashed var(--clay);text-align:center">
+      <div style="font-size:30px">🔒</div>
+      <h2 style="justify-content:center;color:var(--clay)">你看的是诊断版 ¥${PRODUCTS.standard_report.price} · 规划版 ¥${PRODUCTS.premium_report.price} 还包含</h2>
+      <div class="unlock-list" style="margin:6px auto 16px;max-width:520px">${["🗓️ 申请时间线(按月)","💰 费用预算拆解","👨‍👩‍👧 配偶/子女加分策略","🛟 Plan B 备选路径","📈 12 个月行动计划","🏡 家庭决策总结"].map(x=>`<div class="ul-item">${esc(x)}</div>`).join('')}</div>
+      <button class="btn btn-clay btn-lg" onclick="go('checkout','premium_report')">升级全路径规划版 ¥${PRODUCTS.premium_report.price} →</button>
+    </div>`:''}
+
     <div class="disclaimer-box">${DISCLAIMER}</div>
   </div></div>`;
 };
