@@ -1104,11 +1104,17 @@ RENDER.report=function(){
   if(!A.isPaid&&!A.isSample){go('checkout');return;}
   if(!A.fullReport){generateFullReport();return;}
   window.scrollTo(0,0);
-  const R=A.fullReport,ai=R.ai||{};const isPrem=(R.reportType==='premium_report')||A.isSample;
+  const R=A.fullReport,ai=R.ai||{};const isPrem=R.reportType==='premium_report';
   let n=0;const num=()=>++n;
   const sevColor=s=>s==='高'?'var(--clay)':s==='中'?'var(--gold)':'var(--pine2)';
   app().innerHTML=`<div class="page"><div class="container report-wrap">
-    ${A.isSample?`<div class="kbox" style="margin-bottom:14px;background:var(--gold)">样例报告（示意） · 数据为虚构演示</div>`:''}
+    ${A.isSample?`<div class="kbox" style="margin-bottom:10px;background:var(--gold)">样例报告（示意） · 数据为虚构演示</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:16px">
+        <div style="font-size:13px;color:var(--muted)">点这里切换两档,看差在哪 ↓</div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn ${A.reportType==='standard_report'?'btn-pine':'btn-ghost'}" style="padding:9px 18px;font-size:14px" onclick="viewSample('standard')">诊断版 ¥${PRODUCTS.standard_report.price}</button>
+          <button class="btn ${A.reportType==='premium_report'?'btn-clay':'btn-ghost'}" style="padding:9px 18px;font-size:14px" onclick="viewSample('premium')">规划版 ¥${PRODUCTS.premium_report.price}</button>
+        </div></div>`:''}
     <div class="rsec" style="text-align:center;background:var(--pine);color:#fff;border:none">
       <div style="font-family:var(--serif);font-size:13px;letter-spacing:2px;opacity:.8">YIMINSCOPE 移民雷达</div>
       <h1 style="font-size:26px;margin:8px 0">${isPrem?'全路径移民规划报告':'移民竞争力诊断报告'}</h1>
@@ -1121,6 +1127,11 @@ RENDER.report=function(){
       ${A.isSample?`<button class="btn btn-clay" onclick="startAssessment()">测我自己的 →</button>`:`<button class="btn btn-ghost" onclick="go('freeResult')">← 返回初测</button>`}
     </div>
 
+    ${ai.profileScan?`<div class="rsec"><h2><span class="num">${num()}</span>个人画像速览</h2>
+      <div class="six-wrap" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div><b style="color:var(--t-high)">✦ 亮点</b><ul class="plain">${(ai.profileScan.highlights||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+        <div><b style="color:var(--t-low)">⚑ 硬伤 / 风险信号</b><ul class="plain">${(ai.profileScan.redFlags||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      </div></div>`:''}
     <div class="rsec"><h2><span class="num">${num()}</span>整体判断</h2>
       <p style="color:#3c4a43">${esc((ai.executiveSummary&&ai.executiveSummary.oneSentenceConclusion)||`你的综合移民竞争力为 ${R.grade} 档；最匹配的方向是 ${(R.rows[0]||{}).name} 的 ${PATHS[(R.rows[0]||{}).path||'skilled'].short} 路径。`)}</p>
       ${ai.executiveSummary?`<h3>最大机会</h3><p style="color:#3c4a43">${esc(ai.executiveSummary.bestCountryWhy||'')}</p><h3>最大风险</h3><p style="color:#3c4a43">${esc(ai.executiveSummary.mainRisk||'')}</p><h3>建议策略</h3><p style="color:#3c4a43">${esc(ai.executiveSummary.recommendedStrategy||'')}</p>`:''}
@@ -1137,6 +1148,9 @@ RENDER.report=function(){
       </div>
       ${(ai.factorAdvice&&ai.factorAdvice.length)?`<div style="margin-top:6px">${ai.factorAdvice.map(f=>`<h3>${esc(f.factor)}</h3><p style="color:#3c4a43">${esc(f.analysis||'')}</p><p style="color:var(--pine2);font-size:14px">↳ ${esc(f.improvementAdvice||'')}</p>`).join('')}</div>`:''}
     </div>
+    ${(ai.strengths&&ai.strengths.length)||(ai.weaknesses&&ai.weaknesses.length)?`<div class="rsec"><h2><span class="num">${num()}</span>优势与短板</h2>
+      ${(ai.strengths||[]).map(s=>`<div style="margin-bottom:10px"><b style="color:var(--t-high)">✦ ${esc(s.title||'')}</b><div style="color:#3c4a43;font-size:14px">${esc(s.detail||'')}</div></div>`).join('')}
+      ${(ai.weaknesses||[]).map(w=>`<div style="margin-bottom:10px"><b style="color:var(--ink)">${esc(w.title||'')} <span class="sev" style="background:${w.priority==='高'?'var(--clay)':w.priority==='中'?'var(--gold)':'var(--pine2)'};color:#fff">${esc(w.priority||'中')}优先</span></b><div style="color:#3c4a43;font-size:14px">${esc(w.detail||'')}</div></div>`).join('')}</div>`:''}
 
     ${(ai.countryPlans&&ai.countryPlans.length)?`<div class="rsec"><h2><span class="num">${num()}</span>逐国路径详解${isPrem?'':'（节选）'}</h2>
       ${ai.countryPlans.map(cp=>{const cr=(R.rows||[]).find(x=>x.name===cp.country)||{};const tc=(cr.tier&&cr.tier.color)||'var(--pine)';return `<div class="scorecard">
@@ -1196,6 +1210,9 @@ function viewSample(tier){
   go('report');
 }
 const SAMPLE_AI={
+  profileScan:{highlights:["34 岁仍在多数打分制的加分区间","硕士 + 8 年 IT 管理经验,职业属紧缺方向","雅思 6.5–7 已过技术移民门槛","200–500 万可投资金,投资类路径也有空间"],redFlags:["年龄接近 CRS 加分下行拐点,越晚越吃亏","雅思距 CLB9(各项7)还差一档,影响高分段","无海外学习/工作经历,适应力加分弱"]},
+  strengths:[{title:"IT 紧缺职业 + 管理经验",detail:"加拿大/澳洲技术移民对 IT 友好,管理经验在面试和定级上加分,是你最硬的牌。"},{title:"年龄语言双达标",detail:"34 岁 + 雅思达标,技术移民主力通道都够得着,起点不错。"}],
+  weaknesses:[{title:"雅思距高分段差一档",detail:"冲到各项 7(CLB9)能显著提分,这是当前最划算的提分项。",priority:"高"},{title:"缺海外经历",detail:"适应力维度偏弱,可用海外短期项目或雇主 offer 弥补。",priority:"中"}],
   executiveSummary:{oneSentenceConclusion:"以你 34 岁、硕士、8 年 IT 管理经验、雅思 6.5–7、200–500 万可投资金的条件，技术移民竞争力较强，加拿大 Express Entry 与香港高才/优才是当前性价比最高的两条路。",
     bestCountryWhy:"加拿大对 IT 职业友好、年龄仍在加分区间、英语达标，CRS 有冲击邀请线的基础；香港高才通对名校/高薪人群门槛清晰、周期短，可作为快速落地的并行选项。",
     mainRisk:"年龄已接近 CRS 年龄加分的下行拐点，越晚启动分数越受影响；雅思若能冲到 7（CLB9）将显著提分。",
