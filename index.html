@@ -642,7 +642,7 @@ RENDER.home=function(){
     <div class="pricing">
       <div class="price-card">
         <h3>竞争力诊断报告</h3>
-        <div class="price">¥19<small> 一次性</small></div>
+        <div class="price">¥9.9<small> 一次性</small></div>
         <p class="desc">想把每个国家差在哪、门槛多高、分怎么算，弄明白。</p>
         <ul>${["六维竞争力详解","各国匹配度 + 最优路径","逐国关键门槛清单","主要风险与应对","语言 / 材料准备方向"].map(b=>`<li>${b}</li>`).join('')}</ul>
         <button class="btn btn-pine btn-block" onclick="startAssessment()">免费测，测完可解锁</button>
@@ -650,7 +650,7 @@ RENDER.home=function(){
       <div class="price-card feat">
         <span class="tag">规划更完整</span>
         <h3>全路径移民规划报告</h3>
-        <div class="price">¥29<small> 一次性</small></div>
+        <div class="price">¥14.9<small> 一次性</small></div>
         <p class="desc">想要照着就能动手的多国方案、时间表和花钱预算。</p>
         <ul>${["诊断版全部内容","Top 国家逐条路径详解","申请时间线（按月）","费用预算区间","替代路径 / Plan B","配偶子女加分策略","12 个月行动计划","家庭决策总结"].map(b=>`<li>${b}</li>`).join('')}</ul>
         <button class="btn btn-clay btn-block" onclick="startAssessment()">免费测，测完可解锁</button>
@@ -1297,7 +1297,7 @@ RENDER.country=function(key){
 
 /* ---- 法务页 ---- */
 function legalPage(title,html){app().innerHTML=`<div class="page"><div class="container tight"><div class="panel"><h1 style="font-size:24px;font-family:var(--serif);color:var(--pine);margin-bottom:14px">${title}</h1>${html}<div style="margin-top:20px"><button class="btn btn-ghost" onclick="go('home')">← 返回首页</button></div></div></div></div>`;}
-RENDER.terms=()=>legalPage('服务条款',`<p style="color:#3c4a43">移民雷达（YiminScope）是一款基于用户自填信息的移民竞争力自评与信息参考工具。</p><h3 style="margin:14px 0 6px">1. 服务性质</h3><p style="color:#3c4a43">本站提供的所有评分、排名、路径建议与报告均为<b>信息参考</b>，代表“竞争力/匹配度”，<b>不代表签证或永居获批概率</b>，不构成移民、法律或投资建议。</p><h3 style="margin:14px 0 6px">2. 付费与交付</h3><p style="color:#3c4a43">付费产品为一次性购买的在线报告及可下载/打印的 PDF，分为 ¥19 诊断版与 ¥29 规划版。交付物为在线报告页面与可打印 PDF。</p><h3 style="margin:14px 0 6px">3. 免责</h3><p style="color:#3c4a43">各国移民政策与配额经常变动，用户应在做出重大决定前咨询目标国持牌移民顾问或律师。本站不对依据报告所作决策的结果承担责任。</p>`);
+RENDER.terms=()=>legalPage('服务条款',`<p style="color:#3c4a43">移民雷达（YiminScope）是一款基于用户自填信息的移民竞争力自评与信息参考工具。</p><h3 style="margin:14px 0 6px">1. 服务性质</h3><p style="color:#3c4a43">本站提供的所有评分、排名、路径建议与报告均为<b>信息参考</b>，代表“竞争力/匹配度”，<b>不代表签证或永居获批概率</b>，不构成移民、法律或投资建议。</p><h3 style="margin:14px 0 6px">2. 付费与交付</h3><p style="color:#3c4a43">付费产品为一次性购买的在线报告及可下载/打印的 PDF，分为 ¥9.9 诊断版与 ¥14.9 规划版。交付物为在线报告页面与可打印 PDF。</p><h3 style="margin:14px 0 6px">3. 免责</h3><p style="color:#3c4a43">各国移民政策与配额经常变动，用户应在做出重大决定前咨询目标国持牌移民顾问或律师。本站不对依据报告所作决策的结果承担责任。</p>`);
 RENDER.privacy=()=>legalPage('隐私政策',`<p style="color:#3c4a43">我们仅收集为生成报告所必需的信息（你填写的背景、可选的邮箱）。</p><ul class="plain"><li>评测数据保存在你本地浏览器，用于生成报告。</li><li>邮箱（若填写）仅用于订单记录与后续可能的报告找回，不会出售或用于无关营销。</li><li>模型处理通过服务器安全代理调用，密钥不暴露于前端。</li></ul>`);
 RENDER.disclaimer=()=>legalPage('免责声明',`<div class="disclaimer-box">${DISCLAIMER}</div><p style="color:#3c4a43;margin-top:14px">移民雷达不是移民中介，不提供代办服务，与任何中介不存在导流返佣关系。我们的目标是让你在花钱、签约之前，先有一个客观、中立的自我参照。</p>`);
 
