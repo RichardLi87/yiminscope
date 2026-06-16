@@ -296,9 +296,22 @@ footer.site .legal-links a{color:#9fb0a7}
   .scorecard .sc-head .pathtag{font-size:11px}
 }
 @media print{header.site,footer.site,.report-actions,.no-print{display:none!important}body{background:#fff}.rsec{break-inside:avoid;box-shadow:none}.page{padding:0}.six-wrap{grid-template-columns:1fr 1fr}}
+.family-bar{display:flex;align-items:center;justify-content:center;gap:6px;background:#0f1a3a;padding:6px 10px;font-size:12.5px;flex-wrap:wrap}
+.family-bar .fb-item{color:#cbd5e1;padding:3px 11px;border-radius:999px;text-decoration:none;white-space:nowrap}
+.family-bar a.fb-item:hover{color:#fff;background:rgba(255,255,255,.08)}
+.family-bar .fb-active{background:#0F6E56;color:#fff;font-weight:700}
+.family-bar .fb-brand{color:#fff;font-weight:800;letter-spacing:.5px;text-decoration:none}
+.family-bar a.fb-brand:hover{opacity:.85}
+.family-bar .fb-sep{color:#64748b;font-size:11px;margin:0 2px}
 </style>
 </head>
 <body>
+<div class="family-bar no-print">
+  <a class="fb-brand" href="https://tisheng.offerscope.org">📡 提升雷达</a><span class="fb-sep">旗下</span>
+  <a class="fb-item" href="https://offerscope.org">🎯 录取雷达</a>
+  <span class="fb-item fb-active">🌏 移民雷达</span>
+  <a class="fb-item" href="https://hukouscope.com">🏙️ 落户雷达</a>
+</div>
 <header class="site">
   <div class="container">
     <a class="brand" href="#" onclick="go('home');return false">
@@ -311,7 +324,7 @@ footer.site .legal-links a{color:#9fb0a7}
         <path d="M20 31 L17 21 L20 22.5 L23 21 Z" fill="#B68A4E"/>
         <circle cx="20" cy="20" r="2.2" fill="#fff"/>
       </svg>
-      <span class="name">移民雷达<small>YIMINSCOPE</small></span>
+      <span class="name">移民雷达<small>YIMINSCOPE · 提升雷达旗下</small></span>
     </a>
     <nav class="nav-links">
       <a href="#how" onclick="go('home');setTimeout(()=>document.getElementById('how')?.scrollIntoView({behavior:'smooth'}),60);return false">怎么用</a>
@@ -578,16 +591,20 @@ function aiProfile(){
    HOME
 ============================================================ */
 const FAMILY=[
- {key:'offer',name:'录取雷达',domain:'offerscope.org',emoji:'🎓',desc:'留学申请定位 · 能申上哪些学校'},
- {key:'yimin',name:'移民雷达',domain:'yiminscope.com',emoji:'🧭',desc:'移民竞争力 · 最适合去哪、走哪条路'},
- {key:'hukou',name:'落户雷达',domain:'hukouscope.com',emoji:'🏙️',desc:'大城市落户 · 积分够不够、怎么补'},
- {key:'working',name:'求职雷达',domain:'workingscope.com',emoji:'💼',desc:'求职竞争力 · 够不够大厂、值多少薪'},
+ {key:'offer',name:'录取雷达 OfferScope',domain:'offerscope.org',emoji:'🎯',desc:'留学申请竞争力诊断 · 本科/硕士',color:'#185FA5',bg:'#E6F1FB',bd:'#85B7EB',tx:'#0C447C'},
+ {key:'yimin',name:'移民雷达 YiminScope',domain:'yiminscope.com',emoji:'🌏',desc:'10 国移民竞争力与路径,一次测清',color:'#0F6E56',bg:'#E1F5EE',bd:'#5DCAA5',tx:'#04342C'},
+ {key:'hukou',name:'落户雷达 HukouScope',domain:'hukouscope.com',emoji:'🏙️',desc:'10 城落户竞争力与最优落户方式',color:'#A32D2D',bg:'#FCEBEB',bd:'#F09595',tx:'#501313'}
 ];
-function familyStrip(cur){return `<section class="block"><div class="container">
-  <h2 class="sec-title" style="text-align:center">雷达家族</h2>
-  <p class="sec-sub" style="text-align:center;margin-left:auto;margin-right:auto">同一个团队，帮你在人生每个关口先看清自己的位置。任何一个都先免费测。</p>
-  <div class="cards">${FAMILY.filter(f=>f.key!==cur).map(f=>`<a class="card" href="https://${f.domain}" style="display:block;text-decoration:none"><div class="ic">${f.emoji}</div><h3>${f.name}</h3><p>${f.desc}</p><div style="color:var(--clay);font-weight:700;margin-top:10px;font-size:14px">前往 ${f.domain} ›</div></a>`).join('')}</div>
+function familyStrip(cur){return `<section style="padding:48px 0"><div style="max-width:980px;margin:0 auto;padding:0 20px">
+  <h2 style="text-align:center;font-size:26px;font-weight:900;margin:0;color:#0f1530">提升雷达 · 旗下产品</h2>
+  <p style="text-align:center;color:#6b7280;font-size:15px;line-height:1.6;margin:10px auto 0;max-width:560px">「提升雷达」帮你看清人生的几个路口,再决定怎么提升。任何一个都先免费测。</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px">${FAMILY.filter(f=>f.key!==cur).map(f=>`<a href="https://${f.domain}" style="display:block;text-decoration:none;background:${f.bg};border:1px solid ${f.bd};border-radius:16px;padding:22px 20px"><div style="font-size:28px">${f.emoji}</div><h3 style="font-size:19px;margin:10px 0 4px;color:${f.tx}">${f.name}</h3><p style="font-size:14px;color:${f.tx};opacity:.85;line-height:1.6;margin:0">${f.desc}</p><div style="color:${f.color};font-weight:800;margin-top:12px;font-size:14px">去测一测 ›</div></a>`).join('')}</div>
 </div></section>`;}
+function familyCrosssell(cur){const o=FAMILY.filter(f=>f.key!==cur);return `<div class="rsec no-print" style="text-align:center">
+  <div style="font-size:15px;font-weight:800;margin-bottom:4px;color:#0f1530">测完这份,下一步可能也用得上</div>
+  <div style="font-size:13px;color:#6b7280;margin-bottom:14px">同系雷达 · 都先免费测</div>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">${o.map(f=>`<a href="https://${f.domain}" style="text-decoration:none;border:1.5px solid ${f.bd};color:${f.tx};background:${f.bg};padding:9px 16px;border-radius:10px;font-size:14px;font-weight:800">${f.emoji} ${f.name.split(' ')[0]} ›</a>`).join('')}</div>
+</div>`;}
 RENDER.home=function(){
   const chips=COUNTRY_ORDER.map(k=>`<span class="flagchip" onclick="go('country','${k}')"><span class="fl">${COUNTRIES[k].flag}</span>${COUNTRIES[k].name}<span class="ar">›</span></span>`).join('');
   app().innerHTML=`
@@ -656,6 +673,7 @@ RENDER.home=function(){
         <button class="btn btn-clay btn-block" onclick="startAssessment()">免费测，测完可解锁</button>
       </div>
     </div>
+    ${familyStrip('yimin')}
     <div style="max-width:780px;margin:26px auto 0"><div class="disclaimer-box">${DISCLAIMER}</div></div>
   </div></section>`;
 };
@@ -1193,6 +1211,7 @@ RENDER.report=function(){
       <button class="btn btn-clay btn-lg" onclick="go('checkout','premium_report')">升级全路径规划版 ¥${PRODUCTS.premium_report.price} →</button>
     </div>`:''}
 
+    ${familyCrosssell('yimin')}
     <div class="disclaimer-box">${DISCLAIMER}</div>
   </div></div>`;
 };
